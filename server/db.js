@@ -9,17 +9,8 @@ const pool = new Pool({
 
 const initDB = async () => {
   try {
-    await pool.query(`
-      CREATE TABLE IF NOT EXISTS users (
-        id SERIAL PRIMARY KEY,
-        name VARCHAR(100),
-        email VARCHAR(100) UNIQUE,
-        password VARCHAR(255),
-        phone VARCHAR(20)
-      )
-    `);
-
-    console.log("Database connected and table ready");
+    await pool.query("SELECT 1");
+    console.log("Database connected successfully");
   } catch (err) {
     console.error("Database initialization error:", err);
     process.exit(1);
