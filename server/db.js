@@ -1,5 +1,4 @@
 const { Pool } = require("pg");
-require("dotenv").config();
 
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
@@ -15,17 +14,19 @@ const initDB = async () => {
         id SERIAL PRIMARY KEY,
         name VARCHAR(100),
         email VARCHAR(100) UNIQUE,
-        password TEXT,
-        phone VARCHAR(15)
-      );
+        password VARCHAR(255),
+        phone VARCHAR(20)
+      )
     `);
 
-    console.log("Connected to PostgreSQL");
-    console.log("Users table ready");
-  } catch (error) {
-    console.error("Database initialization error:", error);
+    console.log("Database connected and table ready");
+  } catch (err) {
+    console.error("Database initialization error:", err);
     process.exit(1);
   }
 };
 
-module.exports = { pool, initDB };
+module.exports = {
+  pool,
+  initDB,
+};
