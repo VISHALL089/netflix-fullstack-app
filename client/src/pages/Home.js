@@ -1,29 +1,32 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
-import './Home.css';
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import "./Home.css";
 
 const Home = () => {
   const [movies, setMovies] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem("token");
     if (!token) {
-      navigate('/login');
+      navigate("/login");
       return;
     }
 
     const fetchMovies = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/movies', {
-          headers: { Authorization: `Bearer ${token}` }
-        });
+        const response = await axios.get(
+          "https://netflix-app-m3t9.onrender.com/api/movies",
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          },
+        );
         setMovies(response.data);
       } catch (error) {
         if (error.response?.status === 401) {
-          localStorage.removeItem('token');
-          navigate('/login');
+          localStorage.removeItem("token");
+          navigate("/login");
         }
       }
     };
@@ -32,8 +35,8 @@ const Home = () => {
   }, [navigate]);
 
   const handleLogout = () => {
-    localStorage.removeItem('token');
-    navigate('/login');
+    localStorage.removeItem("token");
+    navigate("/login");
   };
 
   return (
