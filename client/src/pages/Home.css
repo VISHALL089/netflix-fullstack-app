@@ -1,83 +1,88 @@
-.home-container {
-  min-height: 100vh;
-  background: #141414;
+.home {
+  background-color: var(--netflix-black);
 }
 
-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 20px 50px;
-  background: #000;
+.rows-container {
+  padding: 20px 0;
+  margin-top: -150px;
+  position: relative;
+  z-index: 5;
 }
 
-header h1 {
-  color: #e50914;
-  font-size: 32px;
-  font-weight: bold;
-}
-
-header button {
-  padding: 10px 20px;
-  background: #e50914;
-  border: none;
-  border-radius: 4px;
-  color: #fff;
-  font-size: 14px;
-  cursor: pointer;
-}
-
-header button:hover {
-  background: #f40612;
-}
-
-.movies-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 20px;
-  padding: 40px 50px;
-}
-
-.movie-card {
-  background: #1a1a1a;
-  border-radius: 8px;
-  overflow: hidden;
-  transition: transform 0.3s;
-  cursor: pointer;
-}
-
-.movie-card:hover {
-  transform: scale(1.05);
-}
-
-.movie-card img {
+/* Loading Screen */
+.loading-screen {
+  height: 100vh;
   width: 100%;
-  height: 300px;
-  object-fit: cover;
+  background-color: var(--netflix-black);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.movie-info {
-  padding: 15px;
+.netflix-loader {
+  width: 50px;
+  height: 50px;
+  border: 3px solid transparent;
+  border-top-color: var(--netflix-red);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
 }
 
-.movie-info h3 {
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Footer */
+.footer {
+  max-width: 980px;
+  margin: 40px auto 0;
+  padding: 20px 4%;
+  color: var(--text-gray);
+}
+
+.footer-links {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 15px;
+  margin-bottom: 30px;
+}
+
+.footer-links span {
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.footer-links span:hover {
+  text-decoration: underline;
+}
+
+.service-code {
+  background: transparent;
+  border: 1px solid var(--text-gray);
+  color: var(--text-gray);
+  padding: 5px 10px;
+  font-size: 13px;
+  margin-bottom: 20px;
+}
+
+.service-code:hover {
   color: #fff;
-  font-size: 16px;
-  margin-bottom: 8px;
+  border-color: #fff;
 }
 
-.rating {
-  color: #ffd700;
-  font-size: 14px;
-  margin-bottom: 8px;
+.copyright {
+  font-size: 11px;
+  margin-bottom: 40px;
 }
 
-.overview {
-  color: #999;
-  font-size: 12px;
-  line-height: 1.4;
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
+@media (max-width: 768px) {
+  .footer-links {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .rows-container {
+    margin-top: -50px;
+  }
 }

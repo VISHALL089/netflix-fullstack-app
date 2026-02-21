@@ -11,7 +11,7 @@ const Login = () => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "https://netflix-app-m3t9.onrender.com/api/login",
+        "http://localhost:5000/api/login",
         formData,
       );
       localStorage.setItem("token", response.data.token);
@@ -23,12 +23,16 @@ const Login = () => {
 
   return (
     <div className="auth-container">
+      <nav className="auth-nav">
+        <h1 className="logo">NETFLIX</h1>
+      </nav>
       <div className="auth-box">
         <h1>Sign In</h1>
         <form onSubmit={handleSubmit}>
           <input
             type="email"
             placeholder="Email"
+            className="auth-input"
             value={formData.email}
             onChange={(e) =>
               setFormData({ ...formData, email: e.target.value })
@@ -38,20 +42,27 @@ const Login = () => {
           <input
             type="password"
             placeholder="Password"
+            className="auth-input"
             value={formData.password}
             onChange={(e) =>
               setFormData({ ...formData, password: e.target.value })
             }
             required
           />
-          <button type="submit">Sign In</button>
+          <button type="submit" className="auth-btn">Sign In</button>
         </form>
-        <p>
-          New to Netflix?{" "}
-          <span onClick={() => navigate("/register")}>Sign up now</span>
-        </p>
+        <div className="auth-footer">
+          <p>
+            New to Netflix?{" "}
+            <span onClick={() => navigate("/register")}>Sign up now</span>
+          </p>
+          <p className="recaptcha-text">
+            This page is protected by Google reCAPTCHA to ensure you're not a bot. <span>Learn more.</span>
+          </p>
+        </div>
       </div>
     </div>
+
   );
 };
 

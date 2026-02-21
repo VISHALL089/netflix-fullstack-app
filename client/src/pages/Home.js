@@ -1,10 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import Navbar from "../components/Navbar";
+import Banner from "../components/Banner";
+import Row from "../components/Row";
 import "./Home.css";
 
 const Home = () => {
-  const [movies, setMovies] = useState([]);
+  const [trending, setTrending] = useState([]);
+  const [popular, setPopular] = useState([]);
+  const [topRated, setTopRated] = useState([]);
+  const [action, setAction] = useState([]);
+  const [comedy, setComedy] = useState([]);
+  const [bannerMovie, setBannerMovie] = useState(null);
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -14,52 +23,86 @@ const Home = () => {
       return;
     }
 
-    const fetchMovies = async () => {
+    const fetchAllMovies = async () => {
       try {
-        const response = await axios.get(
-          "https://netflix-app-m3t9.onrender.com/api/movies",
-          {
-            headers: { Authorization: `Bearer ${token}` },
-          },
-        );
-        setMovies(response.data);
+        const headers = { Authorization: `Bearer ${token}` };
+        const baseUrl = "http://localhost:5000/api/movies";
+
+        // Fetch all categories in parallel from YOUR API
+        const [trendingRes, popularRes, topRatedRes, actionRes, comedyRes] = await Promise.all([
+          axios.get(`${baseUrl}/trending`, { headers }),
+          axios.get(`${baseUrl}/popular`, { headers }),
+          axios.get(`${baseUrl}/top-rated`, { headers }),
+          axios.get(`${baseUrl}/action`, { headers }),
+          axios.get(`${baseUrl}/comedy`, { headers })
+        ]);
+
+        setTrending(trendingRes.data);
+        setPopular(popularRes.data);
+        setTopRated(topRatedRes.data);
+        setAction(actionRes.data);
+        setComedy(comedyRes.data);
+
+        // Set a random trending movie for the banner
+        if (trendingRes.data.length > 0) {
+          setBannerMovie(
+            trendingRes.data[Math.floor(Math.random() * trendingRes.data.length)]
+          );
+        }
+        setLoading(false);
       } catch (error) {
+        console.error("Error fetching from API:", error);
         if (error.response?.status === 401) {
           localStorage.removeItem("token");
           navigate("/login");
         }
+        setLoading(false);
       }
     };
 
-    fetchMovies();
+    fetchAllMovies();
   }, [navigate]);
 
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    navigate("/login");
-  };
+  if (loading) {
+    return (
+      <div className="loading-screen">
+        <div className="netflix-loader"></div>
+      </div>
+    );
+  }
 
   return (
-    <div className="home-container">
-      <header>
-        <h1>NETFLIX</h1>
-        <button onClick={handleLogout}>Logout</button>
-      </header>
-      <div className="movies-grid">
-        {movies.map((movie) => (
-          <div key={movie.id} className="movie-card">
-            <img
-              src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-              alt={movie.title}
-            />
-            <div className="movie-info">
-              <h3>{movie.title}</h3>
-              <p className="rating">⭐ {movie.vote_average.toFixed(1)}</p>
-              <p className="overview">{movie.overview}</p>
-            </div>
-          </div>
-        ))}
+    <div className="home">
+      <Navbar />
+      <Banner movie={bannerMovie} />
+
+      <div className="rows-container">
+        <Row title="Trending Now" movies={trending} isLargeRow={true} />
+        <Row title="Popular on Netflix" movies={popular} />
+        <Row title="Top Rated" movies={topRated} />
+        <Row title="Action Movies" movies={action} />
+        <Row title="Comedy Movies" movies={comedy} />
       </div>
+
+      <footer className="footer">
+        <div className="footer-links">
+          <span>Audio and Subtitles</span>
+          <span>Audio Description</span>
+          <span>Help Center</span>
+          <span>Gift Cards</span>
+          <span>Media Center</span>
+          <span>Investor Relations</span>
+          <span>Jobs</span>
+          <span>Terms of Use</span>
+          <span>Privacy</span>
+          <span>Legal Notices</span>
+          <span>Cookie Preferences</span>
+          <span>Corporate Information</span>
+          <span>Contact Us</span>
+        </div>
+        <button className="service-code">Service Code</button>
+        <p className="copyright">© 1997-2026 Netflix, Inc.</p>
+      </footer>
     </div>
   );
 };

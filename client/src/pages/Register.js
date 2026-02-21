@@ -16,7 +16,7 @@ const Register = () => {
     e.preventDefault();
     try {
       await axios.post(
-        "https://netflix-app-m3t9.onrender.com/api/register",
+        "http://localhost:5000/api/register",
         formData,
       );
       alert("Registration successful!");
@@ -28,12 +28,16 @@ const Register = () => {
 
   return (
     <div className="auth-container">
+      <nav className="auth-nav">
+        <h1 className="logo">NETFLIX</h1>
+      </nav>
       <div className="auth-box">
         <h1>Sign Up</h1>
         <form onSubmit={handleSubmit}>
           <input
             type="text"
             placeholder="Name"
+            className="auth-input"
             value={formData.name}
             onChange={(e) => setFormData({ ...formData, name: e.target.value })}
             required
@@ -41,6 +45,7 @@ const Register = () => {
           <input
             type="email"
             placeholder="Email"
+            className="auth-input"
             value={formData.email}
             onChange={(e) =>
               setFormData({ ...formData, email: e.target.value })
@@ -50,6 +55,7 @@ const Register = () => {
           <input
             type="password"
             placeholder="Password"
+            className="auth-input"
             value={formData.password}
             onChange={(e) =>
               setFormData({ ...formData, password: e.target.value })
@@ -59,20 +65,24 @@ const Register = () => {
           <input
             type="tel"
             placeholder="Phone"
+            className="auth-input"
             value={formData.phone}
             onChange={(e) =>
               setFormData({ ...formData, phone: e.target.value })
             }
             required
           />
-          <button type="submit">Sign Up</button>
+          <button type="submit" className="auth-btn">Sign Up</button>
         </form>
-        <p>
-          Already have an account?{" "}
-          <span onClick={() => navigate("/login")}>Sign In</span>
-        </p>
+        <div className="auth-footer">
+          <p>
+            Already have an account?{" "}
+            <span onClick={() => navigate("/login")}>Sign In</span>
+          </p>
+        </div>
       </div>
     </div>
+
   );
 };
 

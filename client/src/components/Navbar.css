@@ -1,0 +1,74 @@
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 68px;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 4%;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.7) 10%, transparent);
+    transition: background-color 0.3s ease;
+}
+
+.navbar-scrolled {
+    background-color: var(--netflix-black);
+}
+
+.navbar-left {
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    color: var(--netflix-red);
+    font-size: 25px;
+    font-weight: 800;
+    margin-right: 45px;
+    cursor: pointer;
+    letter-spacing: -1px;
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 20px;
+}
+
+.nav-links li {
+    font-size: 14px;
+    color: #e5e5e5;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.nav-links li:hover {
+    color: #b3b3b3;
+}
+
+.navbar-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    font-size: 20px;
+}
+
+.search-icon,
+.notifications {
+    cursor: pointer;
+    color: white;
+}
+
+.profile-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+@media (max-width: 950px) {
+    .nav-links {
+        display: none;
+    }
+}
