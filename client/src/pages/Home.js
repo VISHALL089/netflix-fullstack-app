@@ -26,15 +26,15 @@ const Home = () => {
     const fetchAllMovies = async () => {
       try {
         const headers = { Authorization: `Bearer ${token}` };
-        const baseUrl = "http://localhost:5000/api/movies";
+        const baseUrl = process.env.REACT_APP_API_URL;
 
         // Fetch all categories in parallel from YOUR API
         const [trendingRes, popularRes, topRatedRes, actionRes, comedyRes] = await Promise.all([
-          axios.get(`${baseUrl}/trending`, { headers }),
-          axios.get(`${baseUrl}/popular`, { headers }),
-          axios.get(`${baseUrl}/top-rated`, { headers }),
-          axios.get(`${baseUrl}/action`, { headers }),
-          axios.get(`${baseUrl}/comedy`, { headers })
+          axios.get(`${baseUrl}/movies/trending`, { headers }),
+          axios.get(`${baseUrl}/movies/popular`, { headers }),
+          axios.get(`${baseUrl}/movies/top-rated`, { headers }),
+          axios.get(`${baseUrl}/movies/action`, { headers }),
+          axios.get(`${baseUrl}/movies/comedy`, { headers })
         ]);
 
         setTrending(trendingRes.data);

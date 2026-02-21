@@ -15,8 +15,16 @@ app.use("/api", movieRoutes);
 
 const PORT = process.env.PORT || 5000;
 
-initDB().then(() => {
-  app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
+if (process.env.NODE_ENV !== 'production') {
+  initDB().then(() => {
+    app.listen(PORT, () => {
+      console.log(`Server running on port ${PORT}`);
+    });
   });
-});
+} else {
+  // In production (Vercel), we still need to init DB
+  initDB();
+}
+
+module.exports = app;
+
