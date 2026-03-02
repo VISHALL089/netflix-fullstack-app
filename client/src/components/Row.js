@@ -6,7 +6,7 @@ import './Row.css';
 const Row = ({ title, movies, isLargeRow = false, onMovieClick }) => {
     const rowRef = useRef(null);
     const [isHovered, setIsHovered] = useState(false);
-    const { myList, toggleFromList, isInList } = useList();
+    const { toggleFromList, isInList } = useList();
     const base_url = "https://image.tmdb.org/t/p/w500/";
 
     const handleScroll = (direction) => {

@@ -7,7 +7,7 @@ const RowSkeleton = ({ title, isLargeRow = false }) => {
 
     return (
         <div className="row skeleton-row">
-            {title && <h2 className="row-title skeleton-title-pulse"></h2>}
+            {title && <h2 className="row-title skeleton-title-pulse" aria-hidden="true" style={{ color: 'transparent' }}>Loading...</h2>}
             <div className="row-posters skeleton-posters">
                 {skeletonCards.map((_, index) => (
                     <div

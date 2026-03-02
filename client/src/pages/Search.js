@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { Play, Plus, ThumbsUp, Heart, ChevronDown } from 'lucide-react';
+import { Play, ThumbsUp, Heart, ChevronDown } from 'lucide-react';
 import Navbar from "../components/Navbar";
 import MovieModal from "../components/MovieModal";
 import ScrollToTop from "../components/ScrollToTop";
@@ -31,15 +31,15 @@ const Search = () => {
         const searchMovies = async () => {
             setLoading(true);
             try {
-                const headers = { Authorization: `Bearer ${token}` };
+                const headers = { Authorization: `Bearer ${token} ` };
                 const baseUrl = process.env.REACT_APP_API_URL;
 
                 // Fetch from multiple to build a large local pool since backend has no search
                 const [p1, p2, p3, p4] = await Promise.all([
-                    axios.get(`${baseUrl}/movies/trending`, { headers }),
-                    axios.get(`${baseUrl}/movies/popular`, { headers }),
-                    axios.get(`${baseUrl}/movies/action`, { headers }),
-                    axios.get(`${baseUrl}/movies/comedy`, { headers })
+                    axios.get(`${baseUrl} /movies/trending`, { headers }),
+                    axios.get(`${baseUrl} /movies/popular`, { headers }),
+                    axios.get(`${baseUrl} /movies/action`, { headers }),
+                    axios.get(`${baseUrl} /movies/comedy`, { headers })
                 ]);
 
                 // Combine and remove duplicates
@@ -103,7 +103,7 @@ const Search = () => {
                                         <div className="movie-poster-wrapper">
                                             <img
                                                 className="row-poster row-posterLarge"
-                                                src={`${base_url}${movie.poster_path || movie.backdrop_path}`}
+                                                src={`${base_url}${movie.poster_path || movie.backdrop_path} `}
                                                 alt={movie.name || movie.title}
                                                 loading="lazy"
                                             />
@@ -114,7 +114,7 @@ const Search = () => {
                                                         alt="hover-backdrop"
                                                         loading="lazy"
                                                     />
-                                                </div>
+                                                </div >
                                                 <div className="hover-details">
                                                     <div className="hover-buttons">
                                                         <div className="hover-buttons-left">
@@ -144,14 +144,14 @@ const Search = () => {
                                                         <span className="hd">HD</span>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </div>
+                                            </div >
+                                        </div >
                                         <h3 className="movie-title-below">{movie.title || movie.name || movie.original_name}</h3>
-                                    </div>
-                                </div>
+                                    </div >
+                                </div >
                             )
                         ))}
-                    </div>
+                    </div >
                 ) : (
                     <div className="search-empty">
                         <div className="empty-state-illustration">🔍</div>
@@ -159,7 +159,7 @@ const Search = () => {
                         <p>Suggestions: Try different keywords, movies, or genres.</p>
                     </div>
                 )}
-            </div>
+            </div >
 
             {selectedMovie && (
                 <MovieModal
@@ -169,7 +169,7 @@ const Search = () => {
             )}
 
             <ScrollToTop />
-        </div>
+        </div >
     );
 };
 
