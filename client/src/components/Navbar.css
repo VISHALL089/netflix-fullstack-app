@@ -9,7 +9,7 @@
     align-items: center;
     padding: 0 4%;
     background: linear-gradient(to bottom, rgba(0, 0, 0, 0.7) 10%, transparent);
-    transition: background-color 0.3s ease;
+    transition: background-color 0.4s;
 }
 
 .navbar-scrolled {
@@ -21,9 +21,16 @@
     align-items: center;
 }
 
+.mobile-menu-icon {
+    display: none;
+    cursor: pointer;
+    color: var(--text-white);
+    margin-right: 20px;
+}
+
 .logo {
     color: var(--netflix-red);
-    font-size: 25px;
+    font-size: 30px;
     font-weight: 800;
     margin-right: 45px;
     cursor: pointer;
@@ -40,7 +47,13 @@
     font-size: 14px;
     color: #e5e5e5;
     cursor: pointer;
-    transition: color 0.3s;
+    transition: color 0.4s;
+    font-weight: 500;
+}
+
+.nav-links li.active {
+    font-weight: 700;
+    color: white;
 }
 
 .nav-links li:hover {
@@ -51,24 +64,229 @@
     display: flex;
     align-items: center;
     gap: 20px;
-    font-size: 20px;
 }
 
-.search-icon,
-.notifications {
+.nav-icon {
     cursor: pointer;
     color: white;
+    width: 24px;
+    height: 24px;
+    transition: var(--transition-smooth);
+}
+
+.nav-icon:hover {
+    color: var(--text-gray);
+}
+
+/* Search Box */
+.search-box {
+    display: flex;
+    align-items: center;
+    border: 1px solid transparent;
+    transition: all 0.3s ease;
+    padding: 4px;
+}
+
+.search-open {
+    border: 1px solid rgba(255, 255, 255, 0.85);
+    background-color: rgba(0, 0, 0, 0.75);
+}
+
+.search-icon {
+    cursor: pointer;
+    color: white;
+    width: 24px;
+    height: 24px;
+}
+
+.search-input {
+    width: 0;
+    border: none;
+    background: transparent;
+    color: white;
+    outline: none;
+    transition: width 0.3s ease;
+    padding: 0;
+    font-size: 14px;
+}
+
+.search-open .search-input {
+    width: 200px;
+    padding: 0 10px;
+}
+
+/* Profile Dropdown */
+.profile-container {
+    position: relative;
+    cursor: pointer;
+    height: 68px;
+    display: flex;
+    align-items: center;
+}
+
+.profile-trigger {
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
 
 .profile-avatar {
     width: 32px;
     height: 32px;
     border-radius: 4px;
+    object-fit: cover;
+}
+
+.profile-caret {
+    width: 16px;
+    height: 16px;
+    color: white;
+    transition: transform 0.3s;
+}
+
+.profile-caret.rotated {
+    transform: rotate(180deg);
+}
+
+.profile-dropdown {
+    position: absolute;
+    top: 68px;
+    right: 0;
+    background: rgba(0, 0, 0, 0.9);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    width: 200px;
+    padding: 10px 0;
+    font-size: 13px;
+    z-index: 100;
+}
+
+.dropdown-arrow {
+    position: absolute;
+    top: -14px;
+    right: 20px;
+    border-width: 7px;
+    border-style: solid;
+    border-color: transparent transparent rgba(255, 255, 255, 0.8) transparent;
+}
+
+.dropdown-item {
+    padding: 10px 20px;
+    color: #e5e5e5;
+}
+
+.dropdown-item:hover {
+    text-decoration: underline;
+}
+
+.dropdown-divider {
+    height: 1px;
+    background: rgba(255, 255, 255, 0.25);
+    margin: 10px 0;
+}
+
+/* Mobile Sidebar */
+.mobile-sidebar {
+    position: fixed;
+    top: 0;
+    left: -250px;
+    width: 250px;
+    height: 100vh;
+    background-color: var(--netflix-black);
+    z-index: 200;
+    transition: left 0.3s ease;
+    padding: 20px;
+}
+
+.mobile-sidebar.open {
+    left: 0;
+}
+
+.sidebar-close {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 20px;
+}
+
+.sidebar-close svg {
     cursor: pointer;
+    width: 30px;
+    height: 30px;
+}
+
+.sidebar-user {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #333;
+    margin-bottom: 20px;
+}
+
+.sidebar-user img {
+    width: 40px;
+    border-radius: 4px;
+}
+
+.sidebar-links {
+    list-style: none;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.sidebar-links li {
+    padding: 15px 0;
+    cursor: pointer;
+    color: #b3b3b3;
+}
+
+.sidebar-links li:hover,
+.sidebar-links li.active {
+    color: white;
+}
+
+.sidebar-footer {
+    position: absolute;
+    bottom: 30px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.mobile-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 150;
+    animation: fadeIn 0.3s;
 }
 
 @media (max-width: 950px) {
     .nav-links {
         display: none;
+    }
+
+    .mobile-menu-icon {
+        display: block;
+    }
+}
+
+@media (max-width: 600px) {
+    .hidden-mobile {
+        display: none;
+    }
+
+    .profile-container {
+        display: none;
+    }
+
+    .logo {
+        margin-right: 15px;
+        font-size: 24px;
+    }
+
+    .search-open .search-input {
+        width: 130px;
     }
 }

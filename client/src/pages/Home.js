@@ -4,6 +4,10 @@ import axios from "axios";
 import Navbar from "../components/Navbar";
 import Banner from "../components/Banner";
 import Row from "../components/Row";
+import RowSkeleton from "../components/RowSkeleton";
+import MovieModal from "../components/MovieModal";
+import ScrollToTop from "../components/ScrollToTop";
+import { useList } from "../context/ListContext";
 import "./Home.css";
 
 const Home = () => {
@@ -14,6 +18,8 @@ const Home = () => {
   const [comedy, setComedy] = useState([]);
   const [bannerMovie, setBannerMovie] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [selectedMovie, setSelectedMovie] = useState(null);
+  const { myList } = useList();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -65,24 +71,42 @@ const Home = () => {
 
   if (loading) {
     return (
-      <div className="loading-screen">
-        <div className="netflix-loader"></div>
+      <div className="home" style={{ overflow: 'hidden' }}>
+        <Navbar />
+        <div style={{ height: '80vh', background: '#111', width: '100%', marginBottom: '20px', animation: 'pulse 1.5s infinite ease-in-out' }}></div>
+        <div className="rows-container">
+          <RowSkeleton title="Trending Now" isLargeRow={true} />
+          <RowSkeleton title="Popular on Netflix" />
+          <RowSkeleton title="Top Rated" />
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="home">
+    <div className="home animate-fade-in">
       <Navbar />
       <Banner movie={bannerMovie} />
 
       <div className="rows-container">
-        <Row title="Trending Now" movies={trending} isLargeRow={true} />
-        <Row title="Popular on Netflix" movies={popular} />
-        <Row title="Top Rated" movies={topRated} />
-        <Row title="Action Movies" movies={action} />
-        <Row title="Comedy Movies" movies={comedy} />
+        {myList && myList.length > 0 && (
+          <Row title="My List" movies={myList} onMovieClick={setSelectedMovie} />
+        )}
+        <Row title="Trending Now" movies={trending} isLargeRow={true} onMovieClick={setSelectedMovie} />
+        <Row title="Popular on Netflix" movies={popular} onMovieClick={setSelectedMovie} />
+        <Row title="Top Rated" movies={topRated} onMovieClick={setSelectedMovie} />
+        <Row title="Action Movies" movies={action} onMovieClick={setSelectedMovie} />
+        <Row title="Comedy Movies" movies={comedy} onMovieClick={setSelectedMovie} />
       </div>
+
+      <ScrollToTop />
+
+      {selectedMovie && (
+        <MovieModal
+          movie={selectedMovie}
+          onClose={() => setSelectedMovie(null)}
+        />
+      )}
 
       <footer className="footer">
         <div className="footer-links">

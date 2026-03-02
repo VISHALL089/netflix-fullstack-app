@@ -2,52 +2,85 @@
   min-height: 100vh;
   background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://assets.nflxext.com/ffe/siteui/vlv3/9c5457b8-9ab0-4a04-9fc1-e608d5670f1a/710d74e0-7158-408e-8d9b-23c219dee5df/IN-en-20210719-popsignuptwoweeks-perspective_alpha_website_small.jpg');
   background-size: cover;
+  background-position: center;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  position: relative;
 }
 
 .auth-nav {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
-  padding: 25px 50px;
+  padding: 24px 5%;
+  z-index: 10;
 }
 
 .auth-nav .logo {
   color: var(--netflix-red);
-  font-size: 40px;
+  font-size: 45px;
   font-weight: 800;
+  display: inline-block;
+}
+
+.auth-body {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 80px 20px;
 }
 
 .auth-box {
-  background: rgba(0, 0, 0, 0.75);
+  background: var(--glass-morphism-bg);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   padding: 60px 68px 40px;
-  border-radius: 4px;
+  border-radius: 8px;
   width: 100%;
   max-width: 450px;
-  margin-top: 20px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
 }
 
 .auth-box h1 {
-  color: #fff;
+  color: var(--text-white);
   margin-bottom: 28px;
   font-size: 32px;
   font-weight: 700;
 }
 
+.auth-form-group {
+  margin-bottom: 16px;
+  position: relative;
+}
+
 .auth-input {
   width: 100%;
   padding: 16px 20px;
-  margin-bottom: 16px;
-  background: #333;
-  border: none;
+  background: rgba(51, 51, 51, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 4px;
-  color: #fff;
+  color: var(--text-white);
   font-size: 16px;
   outline: none;
+  transition: var(--transition-smooth);
 }
 
 .auth-input:focus {
-  background: #454545;
+  background: rgba(69, 69, 69, 0.9);
+  border-color: var(--netflix-red);
+  box-shadow: 0 0 8px rgba(229, 9, 20, 0.3);
+}
+
+.auth-error-msg {
+  color: var(--netflix-red);
+  font-size: 13px;
+  margin-top: 6px;
+  margin-left: 2px;
+  display: block;
+  animation: fadeIn 0.3s ease-in-out;
 }
 
 .auth-btn {
@@ -56,16 +89,41 @@
   background: var(--netflix-red);
   border: none;
   border-radius: 4px;
-  color: #fff;
+  color: var(--text-white);
   font-size: 16px;
   font-weight: 700;
   cursor: pointer;
   margin-top: 24px;
-  transition: background 0.2s;
+  transition: var(--transition-smooth);
 }
 
 .auth-btn:hover {
-  background: #f40612;
+  background: var(--netflix-red-hover);
+  box-shadow: 0 4px 12px rgba(229, 9, 20, 0.4);
+}
+
+.auth-options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 14px;
+  font-size: 13px;
+  color: var(--text-gray);
+}
+
+.auth-options-group {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.auth-options-link {
+  cursor: pointer;
+}
+
+.auth-options-link:hover {
+  text-decoration: underline;
+  color: var(--text-white);
 }
 
 .auth-footer {
@@ -73,13 +131,13 @@
 }
 
 .auth-footer p {
-  color: #737373;
+  color: var(--text-gray);
   margin-top: 10px;
   font-size: 16px;
 }
 
 .auth-footer p span {
-  color: #fff;
+  color: var(--text-white);
   cursor: pointer;
 }
 
@@ -90,6 +148,7 @@
 .recaptcha-text {
   font-size: 13px !important;
   margin-top: 20px !important;
+  line-height: 1.4;
 }
 
 .recaptcha-text span {
@@ -101,14 +160,27 @@
     padding: 20px;
   }
 
+  .auth-nav .logo {
+    font-size: 30px;
+  }
+
+  .auth-body {
+    padding: 90px 0 0 0;
+    align-items: flex-start;
+  }
+
   .auth-box {
     padding: 40px 20px;
-    background: black;
+    background: var(--netflix-black);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    border: none;
+    border-radius: 0;
     max-width: 100%;
-    margin-top: 0;
+    min-height: calc(100vh - 90px);
   }
 
   .auth-container {
-    background: black;
+    background: var(--netflix-black);
   }
 }

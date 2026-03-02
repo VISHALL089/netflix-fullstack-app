@@ -1,0 +1,54 @@
+.skeleton-row {
+    margin-bottom: 30px;
+}
+
+.skeleton-title-pulse {
+    width: 200px;
+    height: 1.4vw;
+    background-color: #333;
+    animation: pulse 1.5s infinite ease-in-out;
+    border-radius: 4px;
+    margin-bottom: 15px;
+}
+
+.skeleton-posters {
+    overflow: hidden;
+    padding: 15px 0;
+}
+
+.skeleton-card {
+    display: flex;
+    flex-direction: column;
+    pointer-events: none;
+}
+
+.skeleton-poster {
+    width: 100%;
+    aspect-ratio: 2/3;
+    background-color: #222;
+    border-radius: 4px;
+    animation: pulse 1.5s infinite ease-in-out;
+}
+
+.skeleton-title-below {
+    width: 80%;
+    height: 13px;
+    background-color: #333;
+    margin-top: 8px;
+    border-radius: 2px;
+    animation: pulse 1.5s infinite ease-in-out;
+}
+
+@keyframes pulse {
+    0% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.4;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
