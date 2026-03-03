@@ -32,7 +32,7 @@ const Search = () => {
             setLoading(true);
             try {
                 const headers = { Authorization: `Bearer ${token} ` };
-                const baseUrl = process.env.REACT_APP_API_URL;
+                const baseUrl = process.env.REACT_APP_API_URL || '/api';
 
                 // Fetch from multiple to build a large local pool since backend has no search
                 const [p1, p2, p3, p4] = await Promise.all([

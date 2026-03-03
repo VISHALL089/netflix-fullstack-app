@@ -25,7 +25,7 @@ const Register = () => {
 
     try {
       await axios.post(
-        `${process.env.REACT_APP_API_URL}/register`,
+        `${process.env.REACT_APP_API_URL || '/api'}/register`,
         formData
       );
       navigate("/login");

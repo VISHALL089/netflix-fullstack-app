@@ -32,7 +32,7 @@ const Home = () => {
     const fetchAllMovies = async () => {
       try {
         const headers = { Authorization: `Bearer ${token}` };
-        const baseUrl = process.env.REACT_APP_API_URL;
+        const baseUrl = process.env.REACT_APP_API_URL || '/api';
 
         // Fetch all categories in parallel from YOUR API
         const [trendingRes, popularRes, topRatedRes, actionRes, comedyRes] = await Promise.all([
