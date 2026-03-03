@@ -36,10 +36,10 @@ const Search = () => {
 
                 // Fetch from multiple to build a large local pool since backend has no search
                 const [p1, p2, p3, p4] = await Promise.all([
-                    axios.get(`${baseUrl} /movies/trending`, { headers }),
-                    axios.get(`${baseUrl} /movies/popular`, { headers }),
-                    axios.get(`${baseUrl} /movies/action`, { headers }),
-                    axios.get(`${baseUrl} /movies/comedy`, { headers })
+                    axios.get(`${baseUrl}/movies/trending`, { headers }),
+                    axios.get(`${baseUrl}/movies/popular`, { headers }),
+                    axios.get(`${baseUrl}/movies/action`, { headers }),
+                    axios.get(`${baseUrl}/movies/comedy`, { headers })
                 ]);
 
                 // Combine and remove duplicates
